@@ -412,7 +412,7 @@ public class DubboProtocol extends AbstractProtocol {
 
         return invoker;
     }
-
+    //联通客户端
     private ExchangeClient[] getClients(URL url) {
         // whether to share connection
 
@@ -435,10 +435,11 @@ public class DubboProtocol extends AbstractProtocol {
 
         ExchangeClient[] clients = new ExchangeClient[connections];
         for (int i = 0; i < clients.length; i++) {
-            if (useShareConnect) {
+            if (useShareConnect) { // 获取共享客户端
                 clients[i] = shareClients.get(i);
 
             } else {
+                // 初始化新的客户端
                 clients[i] = initClient(url);
             }
         }
@@ -577,7 +578,7 @@ public class DubboProtocol extends AbstractProtocol {
 
         // client type setting.
         String str = url.getParameter(CLIENT_KEY, url.getParameter(SERVER_KEY, DEFAULT_REMOTING_CLIENT));
-
+        // 添加编解码和心跳包参数到 url 中
         url = url.addParameter(CODEC_KEY, DubboCodec.NAME);
         // enable heartbeat by default
         url = url.addParameterIfAbsent(HEARTBEAT_KEY, String.valueOf(DEFAULT_HEARTBEAT));
@@ -595,6 +596,8 @@ public class DubboProtocol extends AbstractProtocol {
                 client = new LazyConnectExchangeClient(url, requestHandler);
 
             } else {
+                // 创建普通 ExchangeClient 实例
+
                 client = Exchangers.connect(url, requestHandler);
             }
 
