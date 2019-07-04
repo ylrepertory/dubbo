@@ -83,6 +83,7 @@ public class ZookeeperRegistry extends FailbackRegistry {
         }
         this.root = group;
         zkClient = zookeeperTransporter.connect(url);
+        // 添加状态监听器
         zkClient.addStateListener(state -> {
             if (state == StateListener.RECONNECTED) {
                 try {

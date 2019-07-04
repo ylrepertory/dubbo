@@ -66,6 +66,7 @@ public abstract class AbstractZookeeperClient<TargetDataListener, TargetChildLis
             create(path.substring(0, i), false);
         }
         if (ephemeral) {
+            //向注册中心注册服务
             createEphemeral(path);
         } else {
             createPersistent(path);

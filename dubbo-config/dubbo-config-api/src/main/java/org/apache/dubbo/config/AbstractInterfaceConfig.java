@@ -317,12 +317,16 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
     }
 
     /**
-     *
+     *检测是否存在注册中心配置类，不存在则抛出异常
+     * 构建参数映射集合，也就是 map
+     * 构建注册中心链接列表
+     * 遍历链接列表，并根据条件决定是否将其添加到 registryList 中
      * Load the registry and conversion it to {@link URL}, the priority order is: system property > dubbo registry config
      *
      * @param provider whether it is the provider side
      * @return
      */
+
     protected List<URL> loadRegistries(boolean provider) {
         // check && override if necessary
         List<URL> registryList = new ArrayList<URL>();
